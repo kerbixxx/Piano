@@ -2,17 +2,26 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace piano
 {
     public partial class Form1 : Form
     {
+
         [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
-
 
         public Form1()
         {
@@ -22,18 +31,17 @@ namespace piano
         private void buttonStart_Click(object sender, EventArgs e)
         {
             IntPtr calcWindow = FindWindow(null, "Form1");
-
             if (SetForegroundWindow(calcWindow))
             {
                 Thread myThread1 = new Thread(PlaySong);
                 myThread1.Start();
             }
         }
-
         void PlaySong()
         {
             Thread.Sleep(4000);
             string text = textBox1.Text;
+
             for (int i = 0; i < text.Length; i++)
             {
                 if (text[i] == '[')
@@ -48,16 +56,16 @@ namespace piano
                     }
                     if (text[i] == ']')
                     {
-                        for(int j = 0; j < buffer.Length; j++)
+                        for (int j = 0; j < buffer.Length; j++)
                         {
-                            PressKey((byte)buffer[j]);
+                            ConvertCharToVirtualKey(buffer[j]);
                         }
                         continue;
                     }
                 }
                 if (text[i] == ' ')
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
                     continue;
                 }
                 if (text[i] == '|')
@@ -65,10 +73,8 @@ namespace piano
                     Thread.Sleep(400);
                     continue;
                 }
-                string buffPlay = text[i].ToString();
-                PressKey((byte)text[i]);
-                Thread.Sleep(50);
-                //textBox2.Text = textBox2.Text + text[i].ToString();
+                ConvertCharToVirtualKey(text[i]);
+                Thread.Sleep(100);
             }
         }
 
@@ -79,10 +85,35 @@ namespace piano
                                 int dwFlags, // Здесь целочисленный тип нажимается 0, отпускается 2
                                 int dwExtraInfo // Это целочисленный тип. Обычно устанавливается в 0
                 );
-        void PressKey(byte input)
+        void PresslowKey(Keys key)
         {
-            keybd_event(input, 0, 0, 0);
-            keybd_event(input, 0, 2, 0);
+            keybd_event((byte)key, 0, 0, 0);
+            keybd_event((byte)key, 0, 2, 0);
+        }
+
+        void PressHighKey(Keys key)
+        {
+
+        }
+
+        void ConvertCharToVirtualKey(char ch)
+        {
+            short vkey = VkKeyScan(ch);
+            Keys retval = (Keys)(vkey & 0xff);
+            int modifiers = vkey >> 8;
+            if ((modifiers & 1) != 0) retval |= Keys.Shift;
+            if ((modifiers & 2) != 0) retval |= Keys.Control;
+            if ((modifiers & 4) != 0) retval |= Keys.Alt;
+
+            PresslowKey(retval);
+        }
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern short VkKeyScan(char ch);
+
+        private void buttonStop_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
