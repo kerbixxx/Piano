@@ -32,6 +32,9 @@
             this.buttonStart = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxTact = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
@@ -44,7 +47,7 @@
             // 
             // buttonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(104, 361);
+            this.buttonStart.Location = new System.Drawing.Point(12, 361);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(190, 67);
             this.buttonStart.TabIndex = 1;
@@ -54,7 +57,7 @@
             // 
             // buttonStop
             // 
-            this.buttonStop.Location = new System.Drawing.Point(489, 361);
+            this.buttonStop.Location = new System.Drawing.Point(208, 361);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(190, 67);
             this.buttonStop.TabIndex = 2;
@@ -64,23 +67,52 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(741, 361);
+            this.textBox2.Location = new System.Drawing.Point(843, 12);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(211, 201);
             this.textBox2.TabIndex = 3;
+            // 
+            // textBoxTact
+            // 
+            this.textBoxTact.Location = new System.Drawing.Point(561, 361);
+            this.textBoxTact.Name = "textBoxTact";
+            this.textBoxTact.Size = new System.Drawing.Size(100, 23);
+            this.textBoxTact.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(465, 364);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(90, 15);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Скорость такта";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(683, 364);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(105, 15);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Рекомендуется 20";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1079, 655);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxTact);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.textBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -92,5 +124,8 @@
         private Button buttonStart;
         private Button buttonStop;
         private TextBox textBox2;
+        private TextBox textBoxTact;
+        private Label label1;
+        private Label label2;
     }
 }

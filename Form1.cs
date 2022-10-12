@@ -39,6 +39,7 @@ namespace piano
         }
         void PlaySong()
         {
+            int tact = Convert.ToInt32(textBoxTact.Text);
             Thread.Sleep(4000);
             string text = textBox1.Text;
 
@@ -60,21 +61,22 @@ namespace piano
                         {
                             ConvertCharToVirtualKey(buffer[j]);
                         }
+                        Thread.Sleep(tact*10);
                         continue;
                     }
                 }
                 if (text[i] == ' ')
                 {
-                    Thread.Sleep(200);
+                    //PresslowKey(Keys.Space); Прикол для гонок на клавиатуре08
+                    Thread.Sleep(tact*10);
                     continue;
                 }
                 if (text[i] == '|')
                 {
-                    Thread.Sleep(400);
+                    Thread.Sleep(tact*20);
                     continue;
                 }
-                ConvertCharToVirtualKey(text[i]);
-                Thread.Sleep(100);
+                Thread.Sleep(Convert.ToInt32(tact)); //20
             }
         }
 
@@ -93,7 +95,10 @@ namespace piano
 
         void PressHighKey(Keys key)
         {
-
+            keybd_event((byte)Keys.ShiftKey, 0, 0, 0);
+            keybd_event((byte)key, 0, 0, 0);
+            keybd_event((byte)key, 0, 2, 0);
+            keybd_event((byte)Keys.ShiftKey, 0, 2, 0);
         }
 
         void ConvertCharToVirtualKey(char ch)
@@ -101,7 +106,7 @@ namespace piano
             short vkey = VkKeyScan(ch);
             Keys retval = (Keys)(vkey & 0xff);
             int modifiers = vkey >> 8;
-            if ((modifiers & 1) != 0) retval |= Keys.Shift;
+            if ((modifiers & 1) != 0) { PressHighKey((Keys)retval); return; }
             if ((modifiers & 2) != 0) retval |= Keys.Control;
             if ((modifiers & 4) != 0) retval |= Keys.Alt;
 
@@ -113,7 +118,12 @@ namespace piano
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
+            Thread.ResetAbort();
+        }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            textBoxTact.Text = "20";
         }
     }
 }
