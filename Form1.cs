@@ -17,8 +17,6 @@ namespace piano
     public partial class Form1 : Form
     {
 
-        Thread myThread1 = new Thread(PlaySong);
-
         [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
@@ -35,16 +33,15 @@ namespace piano
             IntPtr calcWindow = FindWindow(null, "Form1");
             if (SetForegroundWindow(calcWindow))
             {
-                TextTact tecttact = new TextTact(textBox1.Text, Convert.ToInt32(textBox2.Text));
+                Thread myThread1 = new Thread(PlaySong);
                 myThread1.Start();
             }
         }
-        void PlaySong(object texttact)
+        void PlaySong()
         {
-            TextTact textTact = (TextTact)texttact;
-            int tact = textTact.tact;
+            int tact = Convert.ToInt32(textBoxTact.Text);
             Thread.Sleep(4000);
-            string text = textTact.text;
+            string text = textBox1.Text;
 
             for (int i = 0; i < text.Length; i++)
             {
@@ -64,19 +61,19 @@ namespace piano
                         {
                             ConvertCharToVirtualKey(buffer[j]);
                         }
-                        Thread.Sleep(tact*10);
+                        Thread.Sleep(tact * 10);
                         continue;
                     }
                 }
                 if (text[i] == ' ')
                 {
-                    //PresslowKey(Keys.Space); Прикол для гонок на клавиатуре
-                    Thread.Sleep(tact*10);
+                    //PresslowKey(Keys.Space); Прикол для гонок на клавиатуре08
+                    Thread.Sleep(tact * 10);
                     continue;
                 }
                 if (text[i] == '|')
                 {
-                    Thread.Sleep(tact*20);
+                    Thread.Sleep(tact * 20);
                     continue;
                 }
                 ConvertCharToVirtualKey(text[i]);
@@ -94,6 +91,7 @@ namespace piano
         void PressKey(Keys key)
         {
             keybd_event((byte)key, 0, 0, 0);
+            Thread.Sleep(1);
             keybd_event((byte)key, 0, 2, 0);
         }
 
@@ -121,7 +119,7 @@ namespace piano
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
-            myThread1.Abort();
+            //Thread.ResetAbort();
         }
 
         private void Form1_Load(object sender, EventArgs e)
