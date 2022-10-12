@@ -17,6 +17,8 @@ namespace piano
     public partial class Form1 : Form
     {
 
+        Thread myThread1 = new Thread(PlaySong);
+
         [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
@@ -33,15 +35,16 @@ namespace piano
             IntPtr calcWindow = FindWindow(null, "Form1");
             if (SetForegroundWindow(calcWindow))
             {
-                Thread myThread1 = new Thread(PlaySong);
+                TextTact tecttact = new TextTact(textBox1.Text, Convert.ToInt32(textBox2.Text));
                 myThread1.Start();
             }
         }
-        void PlaySong()
+        void PlaySong(object texttact)
         {
-            int tact = Convert.ToInt32(textBoxTact.Text);
+            TextTact textTact = (TextTact)texttact;
+            int tact = textTact.tact;
             Thread.Sleep(4000);
-            string text = textBox1.Text;
+            string text = textTact.text;
 
             for (int i = 0; i < text.Length; i++)
             {
@@ -67,7 +70,7 @@ namespace piano
                 }
                 if (text[i] == ' ')
                 {
-                    //PresslowKey(Keys.Space); Прикол для гонок на клавиатуре08
+                    //PresslowKey(Keys.Space); Прикол для гонок на клавиатуре
                     Thread.Sleep(tact*10);
                     continue;
                 }
@@ -88,7 +91,7 @@ namespace piano
                                 int dwFlags, // Здесь целочисленный тип нажимается 0, отпускается 2
                                 int dwExtraInfo // Это целочисленный тип. Обычно устанавливается в 0
                 );
-        void PresslowKey(Keys key)
+        void PressKey(Keys key)
         {
             keybd_event((byte)key, 0, 0, 0);
             keybd_event((byte)key, 0, 2, 0);
@@ -97,8 +100,7 @@ namespace piano
         void PressHighKey(Keys key)
         {
             keybd_event((byte)Keys.ShiftKey, 0, 0, 0);
-            keybd_event((byte)key, 0, 0, 0);
-            keybd_event((byte)key, 0, 2, 0);
+            PressKey(key);
             keybd_event((byte)Keys.ShiftKey, 0, 2, 0);
         }
 
@@ -111,7 +113,7 @@ namespace piano
             if ((modifiers & 2) != 0) retval |= Keys.Control;
             if ((modifiers & 4) != 0) retval |= Keys.Alt;
 
-            PresslowKey(retval);
+            PressKey(retval);
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -119,7 +121,7 @@ namespace piano
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
-            //Thread.ResetAbort();
+            myThread1.Abort();
         }
 
         private void Form1_Load(object sender, EventArgs e)
