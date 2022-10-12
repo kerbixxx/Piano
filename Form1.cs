@@ -76,6 +76,7 @@ namespace piano
                     Thread.Sleep(tact*20);
                     continue;
                 }
+                ConvertCharToVirtualKey(text[i]);
                 Thread.Sleep(Convert.ToInt32(tact)); //20
             }
         }
@@ -118,7 +119,7 @@ namespace piano
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
-            Thread.ResetAbort();
+            //Thread.ResetAbort();
         }
 
         private void Form1_Load(object sender, EventArgs e)
