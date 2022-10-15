@@ -11,7 +11,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace piano
 {
     public partial class Form1 : Form
@@ -27,6 +26,8 @@ namespace piano
         public Form1()
         {
             InitializeComponent();
+            this.KeyPreview = true;
+
         }
 
         private async void buttonStart_Click(object sender, EventArgs e)
@@ -34,18 +35,11 @@ namespace piano
             IntPtr calcWindow = FindWindow(null, "Form1");
             if (SetForegroundWindow(calcWindow))
             {
-
-                Player player = new(textBox1.Text,Convert.ToInt16(textBoxTact.Text));
+                Player player = new Player(textBox1.Text,Convert.ToInt16(textBoxTact.Text));
                 _tokenSource = new CancellationTokenSource();
                 var token = _tokenSource.Token;
-
-                try
-                {
-                    await Task.Run(() => player.PlaySong(token));
-                }
-                catch (OperationCanceledException)
-                {
-                    textBox2.Text = "Cancelled";
+                try {
+                    await Task.Run(() => player.PlaySong(token)); 
                 }
                 finally
                 {
@@ -57,12 +51,34 @@ namespace piano
         
         private void buttonStop_Click(object sender, EventArgs e)
         {
-            _tokenSource.Cancel();
+            Stop(_tokenSource);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            textBoxTact.Text = "20";
+            textBoxTact.Text = "200";
+            HotKey hotKeyStop = new HotKey();
+            hotKeyStop.Key = Keys.F7;
+            hotKeyStop.HotKeyPressed += HotkeyStop_HotKeyPressed;
+
+            HotKey hotKeyStart = new HotKey();
+            hotKeyStart.Key = Keys.F6;
+            hotKeyStart.HotKeyPressed += HotKeyStart_HotKeyPressed;
+        }
+
+        private void HotKeyStart_HotKeyPressed(object? sender, KeyEventArgs e)
+        {
+            buttonStart_Click(sender, e);
+        }
+
+        private void HotkeyStop_HotKeyPressed(object? sender, KeyEventArgs e)
+        {
+            Stop(_tokenSource);
+        }
+
+        public void Stop(CancellationTokenSource _tokenSource)
+        {
+            _tokenSource?.Cancel();
         }
     }
 }

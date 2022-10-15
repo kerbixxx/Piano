@@ -1,16 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using System.Globalization;
-using System.Runtime.InteropServices;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Runtime.InteropServices;
 using static piano.InputSender;
 
 namespace piano
@@ -40,6 +28,9 @@ namespace piano
                                 int dwFlags, // Здесь целочисленный тип нажимается 0, отпускается 2
                                 int dwExtraInfo // Это целочисленный тип. Обычно устанавливается в 0
                 );
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool ShowWindow(IntPtr hWnd, int showCmds);
         #endregion
 
         #region KeyPress
@@ -106,6 +97,11 @@ namespace piano
 
             for (int i = 0; i < text.Length; i++)
             {
+                if (cancelToken.IsCancellationRequested)
+                {
+                    return;
+                };
+
                 if (text[i] == '[')
                 {
                     i++;
@@ -122,28 +118,25 @@ namespace piano
                         {
                             ConvertCharToVirtualKey(buffer[j]);
                         }
-                        Thread.Sleep(tact * 10);
+                        Thread.Sleep(tact);
                         continue;
                     }
                 }
                 if (text[i] == ' ')
                 {
                     //PresslowKey(Keys.Space); Прикол для гонок на клавиатуре08
-                    Thread.Sleep(tact * 10);
+                    Thread.Sleep(tact * 2);
                     continue;
                 }
                 if (text[i] == '|')
                 {
-                    Thread.Sleep(tact * 20);
+                    Thread.Sleep(tact * 4);
                     continue;
                 }
                 ConvertCharToVirtualKey(text[i]);
-                Thread.Sleep(Convert.ToInt32(tact)); //20
-                if (cancelToken.IsCancellationRequested)
-                {
-                    cancelToken.ThrowIfCancellationRequested();
-                };
+                Thread.Sleep(tact); //20
             }
         }
+
     }
 }
