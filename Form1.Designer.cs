@@ -35,6 +35,7 @@
             this.textBoxTact = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // textBox1
@@ -98,11 +99,21 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Рекомендуется 20";
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(829, 249);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(225, 229);
+            this.listBox1.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1079, 655);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxTact);
@@ -127,5 +138,6 @@
         private TextBox textBoxTact;
         private Label label1;
         private Label label2;
+        private ListBox listBox1;
     }
 }
