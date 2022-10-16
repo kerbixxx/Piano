@@ -31,10 +31,11 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonStart = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBoxTact = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxSongs = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -65,48 +66,60 @@
             this.buttonStop.UseVisualStyleBackColor = true;
             this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(843, 12);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(211, 201);
-            this.textBox2.TabIndex = 3;
-            // 
             // textBoxTact
             // 
-            this.textBoxTact.Location = new System.Drawing.Point(561, 361);
+            this.textBoxTact.Location = new System.Drawing.Point(707, 384);
             this.textBoxTact.Name = "textBoxTact";
-            this.textBoxTact.Size = new System.Drawing.Size(100, 23);
+            this.textBoxTact.Size = new System.Drawing.Size(81, 23);
             this.textBoxTact.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(465, 364);
+            this.label1.Location = new System.Drawing.Point(600, 387);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 15);
             this.label1.TabIndex = 5;
             this.label1.Text = "Скорость такта";
             // 
-            // label2
+            // comboBoxSongs
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(683, 364);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 15);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Рекомендуется 200";
+            this.comboBoxSongs.FormattingEnabled = true;
+            this.comboBoxSongs.Location = new System.Drawing.Point(817, 33);
+            this.comboBoxSongs.Name = "comboBoxSongs";
+            this.comboBoxSongs.Size = new System.Drawing.Size(237, 23);
+            this.comboBoxSongs.TabIndex = 7;
+            this.comboBoxSongs.SelectedIndexChanged += new System.EventHandler(this.comboBoxSongs_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(817, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(134, 15);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Загруженные мелодии";
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(404, 362);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(190, 65);
+            this.buttonSave.TabIndex = 9;
+            this.buttonSave.Text = "Сохранить";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1079, 655);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(1075, 529);
+            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBoxSongs);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxTact);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.textBox1);
@@ -124,9 +137,10 @@
         private TextBox textBox1;
         private Button buttonStart;
         private Button buttonStop;
-        private TextBox textBox2;
         private TextBox textBoxTact;
         private Label label1;
-        private Label label2;
+        private ComboBox comboBoxSongs;
+        private Label label3;
+        private Button buttonSave;
     }
 }

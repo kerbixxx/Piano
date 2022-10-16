@@ -27,7 +27,6 @@ namespace piano
         {
             InitializeComponent();
             this.KeyPreview = true;
-
         }
 
         private async void buttonStart_Click(object sender, EventArgs e)
@@ -64,6 +63,8 @@ namespace piano
             HotKey hotKeyStart = new HotKey();
             hotKeyStart.Key = Keys.F6;
             hotKeyStart.HotKeyPressed += HotKeyStart_HotKeyPressed;
+
+
         }
 
         private void HotKeyStart_HotKeyPressed(object? sender, KeyEventArgs e)
@@ -79,6 +80,18 @@ namespace piano
         public void Stop(CancellationTokenSource _tokenSource)
         {
             _tokenSource?.Cancel();
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            Song song = new Song(textBox1.Text, Convert.ToInt16(textBoxTact.Text));
+            Form SaveForm = new SaveForm(song);
+            SaveForm.ShowDialog();
+        }
+
+        private void comboBoxSongs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

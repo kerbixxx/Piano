@@ -3,7 +3,7 @@ using static piano.InputSender;
 
 namespace piano
 {
-    class Player
+    public class Player
     {
         public string text { get; set; }
         public int tact { get; set; }
@@ -134,9 +134,8 @@ namespace piano
                     continue;
                 }
                 ConvertCharToVirtualKey(text[i]);
-                Thread.Sleep(tact); //20
+                Thread.Sleep(tact);
             }
         }
-
     }
 }
