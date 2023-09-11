@@ -86,8 +86,14 @@ namespace piano
             XUp = 0x0100
         }
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]//that worked once
         public static extern uint SendInput(uint nInputs, Input[] pInputs, int cbSize);
+
+        [DllImport("user32.dll")]  //stackoverflow
+        internal static extern uint SendInput(
+    uint nInputs,
+    [MarshalAs(UnmanagedType.LPArray), In] INPUT[] pInputs,
+    int cbSize);
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetMessageExtraInfo();

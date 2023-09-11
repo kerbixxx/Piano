@@ -13,5 +13,9 @@ namespace piano
         {
 
         }
+        public Song(string songName, string text, int tact) : base (text,tact)
+        {
+            SongName = songName;
+        }
     }
 }

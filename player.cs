@@ -1,8 +1,28 @@
 ﻿using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using static piano.InputSender;
 
 namespace piano
 {
+    // Declare the INPUT struct
+    [StructLayout(LayoutKind.Sequential)]
+    public struct INPUT
+    {
+        internal uint type;
+        internal InputUnion U;
+        internal static int Size
+        {
+            get { return Marshal.SizeOf(typeof(INPUT)); }
+        }
+    }
+    [Flags]
+    internal enum KEYEVENTF : uint
+    {
+        EXTENDEDKEY = 0x0001,
+        KEYUP = 0x0002,
+        SCANCODE = 0x0008,
+        UNICODE = 0x0004
+    }
     public class Player
     {
         public string text { get; set; }
@@ -13,7 +33,6 @@ namespace piano
             this.text = text;
             this.tact = tact;
         }
-
         #region Imports
         [DllImport("user32.dll")]
         private static extern short VkKeyScan(char ch);
@@ -70,15 +89,37 @@ namespace piano
             SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
         }
 
+        void HoldShift()
+        {
+            var Inputs = new INPUT[1];
+            var Input = new INPUT();
+            Input.type = 1;
+            Input.U.ki.wScan = 42;
+            Input.U.ki.dwFlags = (uint)KeyEventF.Scancode;
+            Inputs[0] = Input;
+            SendInput(1, Inputs, INPUT.Size);
+        }
+        void ReleaseShift()
+        {
+            var Inputs = new INPUT[1];
+            var Input = new INPUT();
+            Input.type = 1;
+            Input.U.ki.wScan = 42;
+            Input.U.ki.dwFlags = (uint)KeyEventF.KeyUp | (uint)KeyEventF.Scancode;
+            Inputs[0] = Input;
+            SendInput(1, Inputs, INPUT.Size);
+        }
+
         void PressHighKey(Keys key)
         {
-            keybd_event((byte)Keys.ShiftKey, 0, 0, 0);
+            HoldShift();
             PressKey(key);
-            keybd_event((byte)Keys.ShiftKey, 0, 2, 0);
+            ReleaseShift();
         }
 
         void ConvertCharToVirtualKey(char ch)
         {
+            if (ch == ' ') return;
             short vkey = VkKeyScan(ch);
             Keys retval = (Keys)(vkey & 0xff);
             int W = MapVirtualKey((char)retval, 0);
@@ -86,11 +127,10 @@ namespace piano
             if ((modifiers & 1) != 0) { PressHighKey(retval); return; }
             if ((modifiers & 2) != 0) retval |= Keys.Control;
             if ((modifiers & 4) != 0) retval |= Keys.Alt;
-
             PressKey(retval);
         }
         #endregion
-
+    
         public void PlaySong(CancellationToken cancelToken)
         {
             Thread.Sleep(1400);
@@ -116,6 +156,7 @@ namespace piano
                     {
                         for (int j = 0; j < buffer.Length; j++)
                         {
+                            if (buffer[j] == ' ') Thread.Sleep(tact / 2);
                             ConvertCharToVirtualKey(buffer[j]);
                         }
                         Thread.Sleep(tact);
@@ -124,7 +165,6 @@ namespace piano
                 }
                 if (text[i] == ' ')
                 {
-                    //PresslowKey(Keys.Space); Прикол для гонок на клавиатуре08
                     Thread.Sleep(tact * 2);
                     continue;
                 }
@@ -133,6 +173,7 @@ namespace piano
                     Thread.Sleep(tact * 4);
                     continue;
                 }
+                if (text[i] == '\n' || text[i] == '\r') { continue; }
                 ConvertCharToVirtualKey(text[i]);
                 Thread.Sleep(tact);
             }
