@@ -28,108 +28,119 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.buttonStart = new System.Windows.Forms.Button();
-            this.buttonStop = new System.Windows.Forms.Button();
-            this.textBoxTact = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxSongs = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            textBox1 = new TextBox();
+            buttonStart = new Button();
+            buttonStop = new Button();
+            textBoxTact = new TextBox();
+            label1 = new Label();
+            comboBoxSongs = new ComboBox();
+            label3 = new Label();
+            buttonSave = new Button();
+            button1 = new Button();
+            SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(788, 343);
-            this.textBox1.TabIndex = 0;
+            textBox1.Location = new Point(0, 0);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(788, 343);
+            textBox1.TabIndex = 0;
             // 
             // buttonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(12, 361);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(190, 67);
-            this.buttonStart.TabIndex = 1;
-            this.buttonStart.Text = "Начать (F6)";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            buttonStart.Location = new Point(12, 361);
+            buttonStart.Name = "buttonStart";
+            buttonStart.Size = new Size(190, 67);
+            buttonStart.TabIndex = 1;
+            buttonStart.Text = "Начать (F6)";
+            buttonStart.UseVisualStyleBackColor = true;
+            buttonStart.Click += buttonStart_Click;
             // 
             // buttonStop
             // 
-            this.buttonStop.Location = new System.Drawing.Point(208, 361);
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(190, 67);
-            this.buttonStop.TabIndex = 2;
-            this.buttonStop.Text = "Стоп (F7)";
-            this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            buttonStop.Location = new Point(208, 361);
+            buttonStop.Name = "buttonStop";
+            buttonStop.Size = new Size(190, 67);
+            buttonStop.TabIndex = 2;
+            buttonStop.Text = "Стоп (F7)";
+            buttonStop.UseVisualStyleBackColor = true;
+            buttonStop.Click += buttonStop_Click;
             // 
             // textBoxTact
             // 
-            this.textBoxTact.Location = new System.Drawing.Point(707, 384);
-            this.textBoxTact.Name = "textBoxTact";
-            this.textBoxTact.Size = new System.Drawing.Size(81, 23);
-            this.textBoxTact.TabIndex = 4;
+            textBoxTact.Location = new Point(707, 384);
+            textBoxTact.Name = "textBoxTact";
+            textBoxTact.Size = new Size(81, 23);
+            textBoxTact.TabIndex = 4;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(600, 387);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 15);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Скорость такта";
+            label1.AutoSize = true;
+            label1.Location = new Point(600, 387);
+            label1.Name = "label1";
+            label1.Size = new Size(90, 15);
+            label1.TabIndex = 5;
+            label1.Text = "Скорость такта";
             // 
             // comboBoxSongs
             // 
-            this.comboBoxSongs.FormattingEnabled = true;
-            this.comboBoxSongs.Location = new System.Drawing.Point(817, 33);
-            this.comboBoxSongs.Name = "comboBoxSongs";
-            this.comboBoxSongs.Size = new System.Drawing.Size(237, 23);
-            this.comboBoxSongs.TabIndex = 7;
-            this.comboBoxSongs.SelectedIndexChanged += new System.EventHandler(this.comboBoxSongs_SelectedIndexChanged);
+            comboBoxSongs.FormattingEnabled = true;
+            comboBoxSongs.Location = new Point(817, 33);
+            comboBoxSongs.Name = "comboBoxSongs";
+            comboBoxSongs.Size = new Size(237, 23);
+            comboBoxSongs.TabIndex = 7;
+            comboBoxSongs.SelectedIndexChanged += comboBoxSongs_SelectedIndexChanged;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(817, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(134, 15);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Загруженные мелодии";
+            label3.AutoSize = true;
+            label3.Location = new Point(817, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(134, 15);
+            label3.TabIndex = 8;
+            label3.Text = "Загруженные мелодии";
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(404, 362);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(190, 65);
-            this.buttonSave.TabIndex = 9;
-            this.buttonSave.Text = "Сохранить";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            buttonSave.Location = new Point(404, 362);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new Size(190, 65);
+            buttonSave.TabIndex = 9;
+            buttonSave.Text = "Сохранить";
+            buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += buttonSave_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(817, 62);
+            button1.Name = "button1";
+            button1.Size = new Size(237, 23);
+            button1.TabIndex = 10;
+            button1.Text = "Обновить список (после сохранения)";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1075, 529);
-            this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBoxSongs);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxTact);
-            this.Controls.Add(this.buttonStop);
-            this.Controls.Add(this.buttonStart);
-            this.Controls.Add(this.textBox1);
-            this.KeyPreview = true;
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1075, 529);
+            Controls.Add(button1);
+            Controls.Add(buttonSave);
+            Controls.Add(label3);
+            Controls.Add(comboBoxSongs);
+            Controls.Add(label1);
+            Controls.Add(textBoxTact);
+            Controls.Add(buttonStop);
+            Controls.Add(buttonStart);
+            Controls.Add(textBox1);
+            KeyPreview = true;
+            Name = "Form1";
+            Text = "Form1";
+            Load += Form1_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -142,5 +153,6 @@
         private ComboBox comboBoxSongs;
         private Label label3;
         private Button buttonSave;
+        private Button button1;
     }
 }

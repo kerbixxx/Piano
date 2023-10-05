@@ -141,7 +141,21 @@ namespace piano
                 {
                     return;
                 };
-
+                if (text[i] == '-')
+                {
+                    Thread.Sleep(tact * 4);
+                    continue;
+                }
+                if (text[i] == '+')
+                {
+                    Thread.Sleep(tact / 8);
+                    continue;
+                }
+                if (text[i] == '=')
+                {
+                    Thread.Sleep(tact / 6);
+                    continue;
+                }
                 if (text[i] == '[')
                 {
                     i++;
@@ -173,6 +187,7 @@ namespace piano
                     Thread.Sleep(tact * 4);
                     continue;
                 }
+
                 if (text[i] == '\n' || text[i] == '\r') { continue; }
                 ConvertCharToVirtualKey(text[i]);
                 Thread.Sleep(tact);

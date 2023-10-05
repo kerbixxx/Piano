@@ -27,10 +27,14 @@ namespace piano
         private void buttonSave_Click(object sender, EventArgs e)
         {
             song.SongName = textBoxSongName.Text;
-            FileInfo file = new FileInfo(song.SongName+".txt");
-            string encryptedTact = "tactfirst" + song.tact.ToString();
-            File.WriteAllText(file.FullName, encryptedTact+"\n");
-            File.AppendAllText(file.FullName, song.text);
+            using(var db = new SongDb())
+            {
+                if (song.SongName != null && song.tact != null && song.text != null)
+                {
+                    db.Songs.Add(song);
+                    db.SaveChanges();
+                }
+            }
             Close();
         }
     }
