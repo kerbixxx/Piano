@@ -37,6 +37,9 @@
             label3 = new Label();
             buttonSave = new Button();
             button1 = new Button();
+            comboBoxSelectWindows = new ComboBox();
+            labelSelectWindow = new Label();
+            buttonUpdateWindowsList = new Button();
             SuspendLayout();
             // 
             // textBox1
@@ -44,6 +47,7 @@
             textBox1.Location = new Point(0, 0);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
+            textBox1.ScrollBars = ScrollBars.Vertical;
             textBox1.Size = new Size(788, 343);
             textBox1.TabIndex = 0;
             // 
@@ -121,11 +125,42 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // comboBoxSelectWindows
+            // 
+            comboBoxSelectWindows.FormattingEnabled = true;
+            comboBoxSelectWindows.Location = new Point(817, 121);
+            comboBoxSelectWindows.Name = "comboBoxSelectWindows";
+            comboBoxSelectWindows.Size = new Size(237, 23);
+            comboBoxSelectWindows.TabIndex = 11;
+            comboBoxSelectWindows.SelectedIndexChanged += comboBoxSelectWindows_SelectedIndexChanged;
+            // 
+            // labelSelectWindow
+            // 
+            labelSelectWindow.AutoSize = true;
+            labelSelectWindow.Location = new Point(817, 103);
+            labelSelectWindow.Name = "labelSelectWindow";
+            labelSelectWindow.Size = new Size(179, 15);
+            labelSelectWindow.TabIndex = 12;
+            labelSelectWindow.Text = "Выбор окна для проигрывания";
+            // 
+            // buttonUpdateWindowsList
+            // 
+            buttonUpdateWindowsList.Location = new Point(817, 150);
+            buttonUpdateWindowsList.Name = "buttonUpdateWindowsList";
+            buttonUpdateWindowsList.Size = new Size(237, 23);
+            buttonUpdateWindowsList.TabIndex = 13;
+            buttonUpdateWindowsList.Text = "Обновить список открытых окон";
+            buttonUpdateWindowsList.UseVisualStyleBackColor = true;
+            buttonUpdateWindowsList.Click += buttonUpdateWindowsList_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1075, 529);
+            Controls.Add(buttonUpdateWindowsList);
+            Controls.Add(labelSelectWindow);
+            Controls.Add(comboBoxSelectWindows);
             Controls.Add(button1);
             Controls.Add(buttonSave);
             Controls.Add(label3);
@@ -137,7 +172,7 @@
             Controls.Add(textBox1);
             KeyPreview = true;
             Name = "Form1";
-            Text = "Form1";
+            Text = "Piano Simulator";
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -154,5 +189,8 @@
         private Label label3;
         private Button buttonSave;
         private Button button1;
+        private ComboBox comboBoxSelectWindows;
+        private Label labelSelectWindow;
+        private Button buttonUpdateWindowsList;
     }
 }

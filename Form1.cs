@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 namespace piano
 {
     public partial class Form1 : Form
     {
         CancellationTokenSource _tokenSource = null;
-
+        string selectedWindow = null;
         [DllImport("USER32.DLL", CharSet = CharSet.Auto)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
@@ -24,7 +25,7 @@ namespace piano
 
         private async void buttonStart_Click(object sender, EventArgs e)
         {
-            IntPtr calcWindow = FindWindow(null, "Roblox");
+            IntPtr calcWindow = FindWindow(null, selectedWindow);
             if (SetForegroundWindow(calcWindow))
             {
                 Player player = new Player(textBox1.Text, Convert.ToInt16(textBoxTact.Text));
@@ -44,7 +45,10 @@ namespace piano
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
-            Stop(_tokenSource);
+            if (_tokenSource != null)
+            {
+                Stop(_tokenSource);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -109,6 +113,35 @@ namespace piano
                 comboBoxSongs.DataSource = list;
                 comboBoxSongs.DisplayMember = "SongName";
             }
+        }
+
+        public List<string> GetWindows()
+        {
+
+            List<string> windowList = new List<string>();
+            foreach (var process in Process.GetProcesses().Where(p => p.MainWindowHandle != IntPtr.Zero && p.ProcessName != "explorer"))
+            {
+                if (process.MainWindowTitle == "")
+                {
+                    continue;
+                }
+                windowList.Add(process.MainWindowTitle);
+            }
+            return windowList;
+        }
+
+        private void comboBoxSelectWindows_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxSelectWindows.SelectedIndex != -1)
+            {
+                selectedWindow = comboBoxSelectWindows.SelectedItem as string;
+            }
+        }
+
+        private void buttonUpdateWindowsList_Click(object sender, EventArgs e)
+        {
+            List<string> objList = GetWindows();
+            comboBoxSelectWindows.DataSource = objList;
         }
     }
 }

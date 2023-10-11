@@ -179,7 +179,7 @@ namespace piano
                 }
                 if (text[i] == ' ')
                 {
-                    Thread.Sleep(tact * 2);
+                    Thread.Sleep(tact*2);
                     continue;
                 }
                 if (text[i] == '|')
