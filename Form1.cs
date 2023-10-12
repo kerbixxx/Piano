@@ -6,6 +6,7 @@ namespace piano
     public partial class Form1 : Form
     {
         CancellationTokenSource _tokenSource = null;
+        CancellationToken token;
         string selectedWindow = null;
         [DllImport("USER32.DLL", CharSet = CharSet.Auto)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
@@ -30,7 +31,7 @@ namespace piano
             {
                 Player player = new Player(textBox1.Text, Convert.ToInt16(textBoxTact.Text));
                 _tokenSource = new CancellationTokenSource();
-                var token = _tokenSource.Token;
+                token = _tokenSource.Token;
                 try
                 {
                     await Task.Run(() => player.PlaySong(token));
@@ -40,7 +41,6 @@ namespace piano
                     _tokenSource.Dispose();
                 }
             }
-            textBox1.Focus();
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
@@ -86,6 +86,7 @@ namespace piano
 
         public void Pause(CancellationTokenSource _tokenSource)
         {
+            token.WaitHandle.WaitOne();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -105,7 +106,7 @@ namespace piano
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonUpdateSongs_Click(object sender, EventArgs e)
         {
             using (var db = new SongDb())
             {
@@ -143,5 +144,38 @@ namespace piano
             List<string> objList = GetWindows();
             comboBoxSelectWindows.DataSource = objList;
         }
+
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            Form form = new EditForm();
+            form.ShowDialog();
+        }
     }
 }
+
+
+//Решение для паузы со Stackoverflow, но так как вызов функции находится в классе Form1, а сама функция в Player, я не могу пользоваться данной переменной. хз
+
+//private ManualResetEvent _manualEvent = new ManualResetEvent(true);
+
+//private void Run()
+//{
+//    Task.Run(() =>
+//    {
+//    while (условие остановки)
+//        {
+//        _manualEvent.WaitOne();
+//        // операции
+//    }
+//});
+//}
+
+//private void Resume()
+//{
+//    _manualEvent.Set();
+//}
+
+//private void Pause()
+//{
+//    _manualEvent.Reset();
+//}

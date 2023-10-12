@@ -134,7 +134,6 @@ namespace piano
         public void PlaySong(CancellationToken cancelToken)
         {
             Thread.Sleep(1400);
-
             for (int i = 0; i < text.Length; i++)
             {
                 if (cancelToken.IsCancellationRequested)

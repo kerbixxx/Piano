@@ -36,10 +36,11 @@
             comboBoxSongs = new ComboBox();
             label3 = new Label();
             buttonSave = new Button();
-            button1 = new Button();
+            buttonUpdateSongs = new Button();
             comboBoxSelectWindows = new ComboBox();
             labelSelectWindow = new Label();
             buttonUpdateWindowsList = new Button();
+            buttonEditSongs = new Button();
             SuspendLayout();
             // 
             // textBox1
@@ -115,15 +116,15 @@
             buttonSave.UseVisualStyleBackColor = true;
             buttonSave.Click += buttonSave_Click;
             // 
-            // button1
+            // buttonUpdateSongs
             // 
-            button1.Location = new Point(817, 62);
-            button1.Name = "button1";
-            button1.Size = new Size(237, 23);
-            button1.TabIndex = 10;
-            button1.Text = "Обновить список (после сохранения)";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            buttonUpdateSongs.Location = new Point(817, 62);
+            buttonUpdateSongs.Name = "buttonUpdateSongs";
+            buttonUpdateSongs.Size = new Size(237, 23);
+            buttonUpdateSongs.TabIndex = 10;
+            buttonUpdateSongs.Text = "Обновить список (после сохранения)";
+            buttonUpdateSongs.UseVisualStyleBackColor = true;
+            buttonUpdateSongs.Click += buttonUpdateSongs_Click;
             // 
             // comboBoxSelectWindows
             // 
@@ -153,15 +154,26 @@
             buttonUpdateWindowsList.UseVisualStyleBackColor = true;
             buttonUpdateWindowsList.Click += buttonUpdateWindowsList_Click;
             // 
+            // buttonEditSongs
+            // 
+            buttonEditSongs.Location = new Point(817, 221);
+            buttonEditSongs.Name = "buttonEditSongs";
+            buttonEditSongs.Size = new Size(237, 63);
+            buttonEditSongs.TabIndex = 14;
+            buttonEditSongs.Text = "Редактирование песен из БД";
+            buttonEditSongs.UseVisualStyleBackColor = true;
+            buttonEditSongs.Click += buttonEdit_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1075, 529);
+            Controls.Add(buttonEditSongs);
             Controls.Add(buttonUpdateWindowsList);
             Controls.Add(labelSelectWindow);
             Controls.Add(comboBoxSelectWindows);
-            Controls.Add(button1);
+            Controls.Add(buttonUpdateSongs);
             Controls.Add(buttonSave);
             Controls.Add(label3);
             Controls.Add(comboBoxSongs);
@@ -188,9 +200,10 @@
         private ComboBox comboBoxSongs;
         private Label label3;
         private Button buttonSave;
-        private Button button1;
+        private Button buttonUpdateSongs;
         private ComboBox comboBoxSelectWindows;
         private Label labelSelectWindow;
         private Button buttonUpdateWindowsList;
+        private Button buttonEditSongs;
     }
 }
