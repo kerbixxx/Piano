@@ -35,7 +35,7 @@ namespace piano
                 if (song != null)
                 {
                     song.text = textBox1.Text;
-                    song.tact = Convert.ToInt32(textBoxTact.Text);
+                    song.bpm = Convert.ToInt32(textBoxTact.Text);
                     db.Update(song);
                     db.SaveChanges();
                 }
@@ -46,9 +46,9 @@ namespace piano
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             Song song = comboBoxSongs.SelectedItem as Song;
-            using (var db =new SongDb())
+            using (var db = new SongDb())
             {
-                if(song!= null)
+                if (song != null)
                 {
                     db.Remove(song);
                     db.SaveChanges();
@@ -63,7 +63,7 @@ namespace piano
             {
                 Song song = comboBoxSongs.SelectedItem as Song;
                 textBox1.Text = song.text;
-                textBoxTact.Text = song.tact.ToString();
+                textBoxTact.Text = song.bpm.ToString();
             }
         }
 

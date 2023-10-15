@@ -81,7 +81,10 @@ namespace piano
 
         public void Stop(CancellationTokenSource _tokenSource)
         {
-            _tokenSource?.Cancel();
+            if (_tokenSource != null)
+            {
+                _tokenSource?.Cancel();
+            }
         }
 
         public void Pause(CancellationTokenSource _tokenSource)
@@ -102,7 +105,7 @@ namespace piano
             {
                 Song song = comboBoxSongs.SelectedItem as Song;
                 textBox1.Text = song.text;
-                textBoxTact.Text = song.tact.ToString();
+                textBoxTact.Text = song.bpm.ToString();
             }
         }
 

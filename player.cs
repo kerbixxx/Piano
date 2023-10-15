@@ -26,12 +26,12 @@ namespace piano
     public class Player
     {
         public string text { get; set; }
-        public int tact { get; set; }
+        public int bpm { get; set; }
 
         public Player(string text, int tact)
         {
             this.text = text;
-            this.tact = tact;
+            this.bpm = tact;
         }
         #region Imports
         [DllImport("user32.dll")]
@@ -133,6 +133,7 @@ namespace piano
     
         public void PlaySong(CancellationToken cancelToken)
         {
+            double quarter = 60000 / bpm;
             Thread.Sleep(1400);
             for (int i = 0; i < text.Length; i++)
             {
@@ -140,19 +141,42 @@ namespace piano
                 {
                     return;
                 };
+                if (text[i] == '-' && text[i + 1] == '-' && text[i + 2] == '-')
+                {
+                    Thread.Sleep((int)quarter*4);
+                    i+=2;
+                    continue;
+                }
+                if (text[i] == '-' && text[i + 1] == '-')
+                {
+                    Thread.Sleep((int)quarter*2);
+                    i++;
+                    continue;
+                }
                 if (text[i] == '-')
                 {
-                    Thread.Sleep(tact * 4);
+                    Thread.Sleep((int)quarter);
+                    continue;
+                }
+                if (text[i] == '+' && text[i + 1] == '+' && text[i+2]=='+')
+                {
+                    Thread.Sleep((int)quarter / 16);
+                    i +=2;
+                    continue;
+                }
+                if (text[i] == '+' && text[i+1]=='+') {
+                    Thread.Sleep((int)quarter/8);
+                    i++;
                     continue;
                 }
                 if (text[i] == '+')
                 {
-                    Thread.Sleep(tact / 8);
+                    Thread.Sleep((int)quarter/4);
                     continue;
                 }
                 if (text[i] == '=')
                 {
-                    Thread.Sleep(tact / 6);
+                    Thread.Sleep((int)quarter / 3);
                     continue;
                 }
                 if (text[i] == '[')
@@ -169,27 +193,22 @@ namespace piano
                     {
                         for (int j = 0; j < buffer.Length; j++)
                         {
-                            if (buffer[j] == ' ') Thread.Sleep(tact / 2);
+                            if (buffer[j] == ' ') Thread.Sleep((int)quarter / 2);
                             ConvertCharToVirtualKey(buffer[j]);
                         }
-                        Thread.Sleep(tact);
+                        Thread.Sleep((int)quarter/8);
                         continue;
                     }
                 }
                 if (text[i] == ' ')
                 {
-                    Thread.Sleep(tact*2);
-                    continue;
-                }
-                if (text[i] == '|')
-                {
-                    Thread.Sleep(tact * 4);
+                    Thread.Sleep((int)quarter/2);
                     continue;
                 }
 
                 if (text[i] == '\n' || text[i] == '\r') { continue; }
                 ConvertCharToVirtualKey(text[i]);
-                Thread.Sleep(tact);
+                Thread.Sleep((int)quarter/8);
             }
         }
     }

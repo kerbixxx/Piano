@@ -29,7 +29,7 @@ namespace piano
             song.SongName = textBoxSongName.Text;
             using(var db = new SongDb())
             {
-                if (song.SongName != null && song.tact != null && song.text != null)
+                if (song.SongName != null && song.bpm != null && song.text != null)
                 {
                     db.Songs.Add(song);
                     db.SaveChanges();

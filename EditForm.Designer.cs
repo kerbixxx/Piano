@@ -55,11 +55,11 @@
             // labelTact
             // 
             labelTact.AutoSize = true;
-            labelTact.Location = new Point(380, 376);
+            labelTact.Location = new Point(438, 376);
             labelTact.Name = "labelTact";
-            labelTact.Size = new Size(90, 15);
+            labelTact.Size = new Size(32, 15);
             labelTact.TabIndex = 2;
-            labelTact.Text = "Скорость такта";
+            labelTact.Text = "BPM";
             // 
             // comboBoxSongs
             // 
@@ -83,7 +83,7 @@
             // 
             buttonEdit.Location = new Point(12, 344);
             buttonEdit.Name = "buttonEdit";
-            buttonEdit.Size = new Size(175, 68);
+            buttonEdit.Size = new Size(207, 68);
             buttonEdit.TabIndex = 5;
             buttonEdit.Text = "Сохранить изменения";
             buttonEdit.UseVisualStyleBackColor = true;
@@ -91,9 +91,9 @@
             // 
             // buttonDelete
             // 
-            buttonDelete.Location = new Point(202, 344);
+            buttonDelete.Location = new Point(238, 344);
             buttonDelete.Name = "buttonDelete";
-            buttonDelete.Size = new Size(172, 68);
+            buttonDelete.Size = new Size(194, 68);
             buttonDelete.TabIndex = 6;
             buttonDelete.Text = "Удалить песню";
             buttonDelete.UseVisualStyleBackColor = true;

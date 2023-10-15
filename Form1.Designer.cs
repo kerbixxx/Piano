@@ -82,11 +82,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(600, 387);
+            label1.Location = new Point(669, 387);
             label1.Name = "label1";
-            label1.Size = new Size(90, 15);
+            label1.Size = new Size(32, 15);
             label1.TabIndex = 5;
-            label1.Text = "Скорость такта";
+            label1.Text = "BPM";
             // 
             // comboBoxSongs
             // 
