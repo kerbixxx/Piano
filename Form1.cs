@@ -38,6 +38,7 @@ namespace piano
                 Player player = new Player(textBox1.Text, Convert.ToInt16(textBoxTact.Text));
                 _tokenSource = new CancellationTokenSource();
                 pauseTokenSource = new PauseTokenSource();
+                isPaused = false;
                 token = _tokenSource.Token;
                 var pauseToken = pauseTokenSource.Token;
                 try
