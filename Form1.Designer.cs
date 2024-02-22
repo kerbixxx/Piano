@@ -41,6 +41,7 @@
             labelSelectWindow = new Label();
             buttonUpdateWindowsList = new Button();
             buttonEditSongs = new Button();
+            label2 = new Label();
             SuspendLayout();
             // 
             // textBox1
@@ -164,11 +165,21 @@
             buttonEditSongs.UseVisualStyleBackColor = true;
             buttonEditSongs.Click += buttonEdit_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(889, 384);
+            label2.Name = "label2";
+            label2.Size = new Size(62, 15);
+            label2.TabIndex = 15;
+            label2.Text = "Пауза (F8)";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1075, 529);
+            Controls.Add(label2);
             Controls.Add(buttonEditSongs);
             Controls.Add(buttonUpdateWindowsList);
             Controls.Add(labelSelectWindow);
@@ -205,5 +216,6 @@
         private Label labelSelectWindow;
         private Button buttonUpdateWindowsList;
         private Button buttonEditSongs;
+        private Label label2;
     }
 }

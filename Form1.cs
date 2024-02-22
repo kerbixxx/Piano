@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Workspace;
+
 namespace piano
 {
     public partial class Form1 : Form
@@ -13,6 +15,10 @@ namespace piano
 
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        public PauseTokenSource pauseTokenSource = new PauseTokenSource();
+
+        private bool isPaused = false;
 
         public Form1()
         {
@@ -31,10 +37,12 @@ namespace piano
             {
                 Player player = new Player(textBox1.Text, Convert.ToInt16(textBoxTact.Text));
                 _tokenSource = new CancellationTokenSource();
+                pauseTokenSource = new PauseTokenSource();
                 token = _tokenSource.Token;
+                var pauseToken = pauseTokenSource.Token;
                 try
                 {
-                    await Task.Run(() => player.PlaySong(token));
+                    await Task.Run(() => player.PlaySong(token, pauseToken), token);
                 }
                 finally
                 {
@@ -62,6 +70,10 @@ namespace piano
             hotKeyStart.Key = Keys.F6;
             hotKeyStart.HotKeyPressed += HotKeyStart_HotKeyPressed;
 
+            HotKey hotKeyPause = new HotKey();
+            hotKeyPause.Key = Keys.F8;
+            hotKeyPause.HotKeyPressed += HotKeyPause_HotKeyPressed;
+
             using (var db = new SongDb())
             {
                 List<Song> list = db.Songs.ToList();
@@ -69,6 +81,12 @@ namespace piano
                 comboBoxSongs.DisplayMember = "SongName";
             }
         }
+
+        private void HotKeyPause_HotKeyPressed(object? sender, KeyEventArgs e)
+        {
+            Pause(_tokenSource);
+        }
+
         private void HotKeyStart_HotKeyPressed(object? sender, KeyEventArgs e)
         {
             buttonStart_Click(sender, e);
@@ -81,12 +99,28 @@ namespace piano
 
         public void Stop(CancellationTokenSource _tokenSource)
         {
-            _tokenSource?.Cancel();
+            try
+            {
+                _tokenSource?.Cancel();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         public void Pause(CancellationTokenSource _tokenSource)
         {
-            token.WaitHandle.WaitOne();
+            if (isPaused)
+            {
+                pauseTokenSource.Resume();
+                isPaused = false;
+            }
+            else
+            {
+                pauseTokenSource.Pause();
+                isPaused = true;
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -152,30 +186,3 @@ namespace piano
         }
     }
 }
-
-
-//Решение для паузы со Stackoverflow, но так как вызов функции находится в классе Form1, а сама функция в Player, я не могу пользоваться данной переменной. хз
-
-//private ManualResetEvent _manualEvent = new ManualResetEvent(true);
-
-//private void Run()
-//{
-//    Task.Run(() =>
-//    {
-//    while (условие остановки)
-//        {
-//        _manualEvent.WaitOne();
-//        // операции
-//    }
-//});
-//}
-
-//private void Resume()
-//{
-//    _manualEvent.Set();
-//}
-
-//private void Pause()
-//{
-//    _manualEvent.Reset();
-//}

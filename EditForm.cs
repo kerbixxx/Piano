@@ -66,7 +66,6 @@ namespace piano
                 textBoxTact.Text = song.tact.ToString();
             }
         }
-
         public void UpdateSongs()
         {
             using (var db = new SongDb())

@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using System.Windows.Forms;
+using Microsoft.VisualStudio.Workspace;
 using static piano.InputSender;
 
 namespace piano
@@ -131,65 +131,90 @@ namespace piano
         }
         #endregion
     
-        public void PlaySong(CancellationToken cancelToken)
+        public async Task PlaySong(CancellationToken cancelToken, PauseToken pauseToken)
         {
-            Thread.Sleep(1400);
-            for (int i = 0; i < text.Length; i++)
+            try
             {
-                if (cancelToken.IsCancellationRequested)
+                await Task.Delay(TimeSpan.FromMilliseconds(1400), cancelToken);
+                for (int i = 0; i < text.Length; i++)
                 {
-                    return;
-                };
-                if (text[i] == '-')
-                {
-                    Thread.Sleep(tact * 4);
-                    continue;
-                }
-                if (text[i] == '+')
-                {
-                    Thread.Sleep(tact / 8);
-                    continue;
-                }
-                if (text[i] == '=')
-                {
-                    Thread.Sleep(tact / 6);
-                    continue;
-                }
-                if (text[i] == '[')
-                {
-                    i++;
-                    string buffer = text[i].ToString();
-                    i++;
-                    while (text[i] != ']')
+                    if (cancelToken.IsCancellationRequested)
                     {
-                        buffer = buffer + text[i];
-                        i++;
+                        return;
                     }
-                    if (text[i] == ']')
+
+                    ;
+
+                    await pauseToken.WaitWhilePausedAsync();
+
+                    if (text[i] == '-')
                     {
-                        for (int j = 0; j < buffer.Length; j++)
-                        {
-                            if (buffer[j] == ' ') Thread.Sleep(tact / 2);
-                            ConvertCharToVirtualKey(buffer[j]);
-                        }
-                        Thread.Sleep(tact);
+                        await Task.Delay(tact * 4, cancelToken);
                         continue;
                     }
-                }
-                if (text[i] == ' ')
-                {
-                    Thread.Sleep(tact*2);
-                    continue;
-                }
-                if (text[i] == '|')
-                {
-                    Thread.Sleep(tact * 4);
-                    continue;
-                }
 
-                if (text[i] == '\n' || text[i] == '\r') { continue; }
-                ConvertCharToVirtualKey(text[i]);
-                Thread.Sleep(tact);
+                    if (text[i] == '+')
+                    {
+                        await Task.Delay(tact / 8, cancelToken);
+                        continue;
+                    }
+
+                    if (text[i] == '=')
+                    {
+                        await Task.Delay(tact / 6, cancelToken);
+                        continue;
+                    }
+
+                    if (text[i] == '[')
+                    {
+                        i++;
+                        string buffer = text[i].ToString();
+                        i++;
+                        while (text[i] != ']')
+                        {
+                            buffer = buffer + text[i];
+                            i++;
+                        }
+
+                        if (text[i] == ']')
+                        {
+                            for (int j = 0; j < buffer.Length; j++)
+                            {
+                                if (buffer[j] == ' ') await Task.Delay(tact / 2, cancelToken);
+                                ConvertCharToVirtualKey(buffer[j]);
+                            }
+
+                            await Task.Delay(tact, cancelToken);
+                            continue;
+                        }
+                    }
+
+                    if (text[i] == ' ')
+                    {
+                        await Task.Delay(tact * 2, cancelToken);
+                        continue;
+                    }
+
+                    if (text[i] == '|')
+                    {
+                        await Task.Delay(tact * 4, cancelToken);
+                        continue;
+                    }
+
+                    CancellationToken token;
+                    if (text[i] == '\n' || text[i] == '\r')
+                    {
+                        continue;
+                    }
+
+                    ConvertCharToVirtualKey(text[i]);
+                    await Task.Delay(tact, cancelToken);
+                    var kek = Task.CurrentId;
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }
