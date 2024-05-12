@@ -12,6 +12,8 @@ namespace piano
 {
     public partial class SaveForm : Form
     {
+        public delegate void OnCloseHandler(Form sender, EventArgs e);
+        public event OnCloseHandler OnClose;
         Song song;
         public SaveForm(Song song)
         {
@@ -35,6 +37,7 @@ namespace piano
                     db.SaveChanges();
                 }
             }
+            OnClose?.Invoke(this, e);
             Close();
         }
     }

@@ -7,6 +7,7 @@ namespace piano
 {
     public partial class Form1 : Form
     {
+        private SaveForm saveFormInstance;
         CancellationTokenSource _tokenSource = null;
         CancellationToken token;
         string selectedWindow = null;
@@ -127,8 +128,13 @@ namespace piano
         private void buttonSave_Click(object sender, EventArgs e)
         {
             Song song = new Song(textBox1.Text, Convert.ToInt16(textBoxTact.Text));
-            Form SaveForm = new SaveForm(song);
-            SaveForm.ShowDialog();
+            saveFormInstance = new SaveForm(song);
+            saveFormInstance.OnClose += SaveForm_OnClose;
+            saveFormInstance.ShowDialog();
+        }
+        private void SaveForm_OnClose(object sender, EventArgs e)
+        {
+            UpdateComboBox(sender, e);
         }
 
         private void comboBoxSongs_SelectedIndexChanged(object sender, EventArgs e)
@@ -141,7 +147,7 @@ namespace piano
             }
         }
 
-        private void buttonUpdateSongs_Click(object sender, EventArgs e)
+        private void UpdateComboBox(object sender, EventArgs e)
         {
             using (var db = new SongDb())
             {

@@ -36,7 +36,6 @@
             comboBoxSongs = new ComboBox();
             label3 = new Label();
             buttonSave = new Button();
-            buttonUpdateSongs = new Button();
             comboBoxSelectWindows = new ComboBox();
             labelSelectWindow = new Label();
             buttonUpdateWindowsList = new Button();
@@ -117,20 +116,10 @@
             buttonSave.UseVisualStyleBackColor = true;
             buttonSave.Click += buttonSave_Click;
             // 
-            // buttonUpdateSongs
-            // 
-            buttonUpdateSongs.Location = new Point(817, 62);
-            buttonUpdateSongs.Name = "buttonUpdateSongs";
-            buttonUpdateSongs.Size = new Size(237, 23);
-            buttonUpdateSongs.TabIndex = 10;
-            buttonUpdateSongs.Text = "Обновить список (после сохранения)";
-            buttonUpdateSongs.UseVisualStyleBackColor = true;
-            buttonUpdateSongs.Click += buttonUpdateSongs_Click;
-            // 
             // comboBoxSelectWindows
             // 
             comboBoxSelectWindows.FormattingEnabled = true;
-            comboBoxSelectWindows.Location = new Point(817, 121);
+            comboBoxSelectWindows.Location = new Point(817, 103);
             comboBoxSelectWindows.Name = "comboBoxSelectWindows";
             comboBoxSelectWindows.Size = new Size(237, 23);
             comboBoxSelectWindows.TabIndex = 11;
@@ -139,7 +128,7 @@
             // labelSelectWindow
             // 
             labelSelectWindow.AutoSize = true;
-            labelSelectWindow.Location = new Point(817, 103);
+            labelSelectWindow.Location = new Point(817, 85);
             labelSelectWindow.Name = "labelSelectWindow";
             labelSelectWindow.Size = new Size(179, 15);
             labelSelectWindow.TabIndex = 12;
@@ -147,7 +136,7 @@
             // 
             // buttonUpdateWindowsList
             // 
-            buttonUpdateWindowsList.Location = new Point(817, 150);
+            buttonUpdateWindowsList.Location = new Point(817, 132);
             buttonUpdateWindowsList.Name = "buttonUpdateWindowsList";
             buttonUpdateWindowsList.Size = new Size(237, 23);
             buttonUpdateWindowsList.TabIndex = 13;
@@ -157,7 +146,7 @@
             // 
             // buttonEditSongs
             // 
-            buttonEditSongs.Location = new Point(817, 221);
+            buttonEditSongs.Location = new Point(817, 214);
             buttonEditSongs.Name = "buttonEditSongs";
             buttonEditSongs.Size = new Size(237, 63);
             buttonEditSongs.TabIndex = 14;
@@ -184,7 +173,6 @@
             Controls.Add(buttonUpdateWindowsList);
             Controls.Add(labelSelectWindow);
             Controls.Add(comboBoxSelectWindows);
-            Controls.Add(buttonUpdateSongs);
             Controls.Add(buttonSave);
             Controls.Add(label3);
             Controls.Add(comboBoxSongs);
@@ -211,7 +199,6 @@
         private ComboBox comboBoxSongs;
         private Label label3;
         private Button buttonSave;
-        private Button buttonUpdateSongs;
         private ComboBox comboBoxSelectWindows;
         private Label labelSelectWindow;
         private Button buttonUpdateWindowsList;

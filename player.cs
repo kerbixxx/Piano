@@ -143,8 +143,6 @@ namespace piano
                         return;
                     }
 
-                    ;
-
                     await pauseToken.WaitWhilePausedAsync();
 
                     if (text[i] == '-')
