@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Workspace;
+using piano.SongLogic;
 
 namespace piano
 {

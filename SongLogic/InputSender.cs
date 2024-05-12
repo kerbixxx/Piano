@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace piano
+namespace piano.SongLogic
 {
     public class InputSender
     {

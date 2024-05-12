@@ -1,8 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Workspace;
-using static piano.InputSender;
+using static piano.SongLogic.InputSender;
 
-namespace piano
+namespace piano.SongLogic
 {
     // Declare the INPUT struct
     [StructLayout(LayoutKind.Sequential)]
@@ -130,7 +130,7 @@ namespace piano
             PressKey(retval);
         }
         #endregion
-    
+
         public async Task PlaySong(CancellationToken cancelToken, PauseToken pauseToken)
         {
             try

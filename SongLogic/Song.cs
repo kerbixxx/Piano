@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace piano
+namespace piano.SongLogic
 {
     public class Song : Player
     {
@@ -17,13 +17,13 @@ namespace piano
         {
 
         }
-        public Song(string songName, string text, int tact) : base (text,tact)
+        public Song(string songName, string text, int tact) : base(text, tact)
         {
             SongName = songName;
         }
-        public Song(int id, string songName, string text, int tact) : base (text,tact)
+        public Song(int id, string songName, string text, int tact) : base(text, tact)
         {
-            Id= id;
+            Id = id;
             SongName = songName;
         }
 

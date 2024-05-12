@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace piano
+namespace piano.SongLogic
 {
     public sealed class HotKey : IMessageFilter, IDisposable
     {
@@ -68,7 +68,7 @@ namespace piano
             if (_key == Keys.None)
                 return;
             if (_isKeyRegisterd)
-                _isKeyRegisterd = !(UnregisterHotKey(_handle, _id));
+                _isKeyRegisterd = !UnregisterHotKey(_handle, _id);
             _isKeyRegisterd = RegisterHotKey(_handle, _id, _keyModifier, _key);
             if (!_isKeyRegisterd)
                 throw new ApplicationException("Hotkey allready in use");
@@ -108,7 +108,7 @@ namespace piano
             switch (m.Msg)
             {
                 case WmHotKey:
-                    if ((int)(m.WParam) == _id)
+                    if ((int)m.WParam == _id)
                     {
                         KeyEventArgs args = new KeyEventArgs((IsButtonDown(m.LParam, KeyModifiers.Alt) ? Keys.Alt : Keys.None)
                                 | (IsButtonDown(m.LParam, KeyModifiers.Control) ? Keys.Control : Keys.None)
@@ -124,7 +124,7 @@ namespace piano
 
         public static bool IsButtonDown(IntPtr ptr, KeyModifiers keyModifiers)
         {
-            return Convert.ToBoolean(((long)ptr) & (long)keyModifiers);
+            return Convert.ToBoolean((long)ptr & (long)keyModifiers);
         }
 
         private void OnHotKeyPressed(KeyEventArgs e)
